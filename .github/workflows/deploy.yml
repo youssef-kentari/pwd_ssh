@@ -1,23 +1,11 @@
-name: Deploy to Play with Docker
-
+name: CI & Docker Image
 on:
   push:
     branches:
       - master
-
 jobs:
-  deploy:
+  test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Copy project files to PWD node
-        run: |
-          scp docker-compose.yml index.html ${{ secrets.USER }}@${{ secrets.PWD_HOST }}:~
-
-      - name: Deploy via Docker Compose
-        run: |
-            docker compose down || true
-            docker compose up -d
