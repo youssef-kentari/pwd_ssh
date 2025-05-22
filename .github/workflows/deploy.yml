@@ -15,7 +15,7 @@ jobs:
 
       - name: Copy project files to PWD node
         run: |
-          scp docker-compose.yml index.html ip172-18-0-74-d0ncmki91nsg00afualg@direct.labs.play-with-docker.com:~
+          scp docker-compose.yml index.html ip172-18-0-11-d0negd0l2o9000995hm0@direct.labs.play-with-docker.com:~
 
       - name: Deploy via Docker Compose
         run: |
