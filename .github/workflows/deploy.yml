@@ -1,4 +1,4 @@
-name: Deploy to Play With Docker
+name: Deploy to Play with Docker
 
 on:
   push:
@@ -13,11 +13,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan ${{ secrets.PWD_HOST }} >> ~/.ssh/known_hosts
+
       - name: Copy project files to PWD node
         run: |
           scp docker-compose.yml index.html ip172-18-0-74-d0ncmki91nsg00afualg@direct.labs.play-with-docker.com:~
 
       - name: Deploy via Docker Compose
         run: |
+          ssh ip172-18-0-74-d0ncmki91nsg00afualg@direct.labs.play-with-docker.com << 'EOF'
             docker compose down || true
             docker compose up -d
+          EOF
