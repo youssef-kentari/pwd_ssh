@@ -1,4 +1,4 @@
-name: Deploy to Play with Docker
+name: Deploy to Play With Docker
 
 on:
   push:
